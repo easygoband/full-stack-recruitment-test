@@ -3,46 +3,16 @@ import {
     acceptHMRUpdate
 } from 'pinia';
 import userService from '@/plugins/userService';
+import { _UserModel, _ReportModel } from '@/utils/models.js'
 
-const userModel =  {
-    _id: null,
-    location:{
-        latitude: null,
-        longitude: null,
-    },
-    items:{
-        water: 0,
-        food: 0,
-        medication: 0,
-        ammunition: 0,
-    }
-}
-
-const reportModel =  {
-    users: {
-		points: 0,
-		total: 0,
-		water: 0,
-		food: 0,
-		medication:  0,
-		ammunition: 0,
-	},
-	infected: {
-		points: 0,
-		total:0,
-		water:0,
-		food:0,
-		medication: 0,
-		ammunition: 0,
-	}
-}
+ 
 
 export const useUserStore = defineStore({
     id: 'user',
     state: () => ({
-        userInfo: {...userModel},
-        survivorInfo: {...userModel},
-        report: {...reportModel},
+        userInfo: _UserModel(),
+        survivorInfo: _UserModel(),
+        report: _ReportModel(),
         loading: {
             data: false,
             survivorInfo: false,
@@ -55,7 +25,7 @@ export const useUserStore = defineStore({
     actions: {
         fnLogout() {
             this.$patch({
-                userInfo: {...userModel},
+                userInfo: _UserModel(),
             })
             localStorage.removeItem('token');
             localStorage.removeItem('user');

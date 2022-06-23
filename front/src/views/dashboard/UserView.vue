@@ -26,12 +26,14 @@
 			<div class="row mb-4">
 				<div class="col-12 border-bottom pb-4 border-primary">
 					<div class="row align-items-center ">
+						<div class="col-1" v-if="userStore.survivorInfo.infected">
+							<img src="@/assets/zombie.png" class="img-fluid" alt="">
+						</div>
 						<div class="col">
 							<div class="row align-items-center ">
 								<div class="col-auto">
 									<h2 class="mb-0">
 										<strong v-text="userStore.survivorInfo.name"></strong>
-
 									</h2>
 								</div>
 								<div class="col-auto ps-0">

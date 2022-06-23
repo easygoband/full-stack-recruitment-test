@@ -29,7 +29,20 @@
 			<div class="col-11  col-lg-6 col-xl-5">
 				<div class="card  animate__animated animate__fadeIn">
 					<div class="card-header">
-						<h1 class="text-center" v-text="$t('general.survive')"></h1>
+						<div class="row align-items-center  ">
+							<div class="col-1">
+								<img src="@/assets/zombie.png" class="img-fluid" alt="">
+							</div>
+							<div class="col-auto">
+								<h3 class="text-center m-0" v-text=" !signupForm ? $t('general.login') : $t('general.signin')"></h3>
+							</div>
+							<div class="col-auto ms-auto">
+								<select v-model="locale" class="form-select">
+									<option value="en" v-text="$t('general.english')"> </option>
+									<option value="es" v-text="$t('general.spanish')"></option>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="card-body py-4">
 						<div class=" d-flex flex-column justify-content-center align-items-center animate__animated animate__fadeIn" v-if="!signupForm">
@@ -61,7 +74,7 @@
 						<SignupForm class="animate__animated animate__fadeIn" @back="signupForm = false" v-else />
 					</div>
 					<div class="card-footer d-flex justify-content-end animate__animated animate__fadeIn" v-if="!signupForm">
-						<button class="btn btn-link " v-text="$t('general.signup')" @click="signupForm = true" v-if="!signupForm"></button>
+						<button class="btn btn-primary " v-text="$t('general.signin')" @click="signupForm = true" v-if="!signupForm"></button>
 					</div>
 				</div>
 			</div>
@@ -73,7 +86,11 @@
 	.zs-login { 
 		background-color: #484E9B;
 		.card{
-			min-height: 450px;
+			min-height: 80vh;
+			.card-body{
+				max-height: 75vh;
+				overflow-y: auto;
+			}
             box-shadow: 0px 10px 10px rgba($color: #000000, $alpha: 0.20);
 		}
 	}
