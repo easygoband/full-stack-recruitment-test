@@ -78,6 +78,7 @@
 		"survivors": "Supervivientes",
 		"updateLocation": "Actualizar ubicación",
 		"user": "Usuario",
+		"userInfectedMessage": "Estas seguro que quieres reportarlo como infectado?",
 		"water": "Agua"
 	},
 	"validations": {

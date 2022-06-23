@@ -29,8 +29,7 @@
 		</template>
 		<template v-slot:body>
 			<div class="container py-5">
-                <h5 class="text-center ">
-                    Estas seguro que quieres reportarlo como infectado?
+                <h5 class="text-center" v-text="$t('general.userInfectedMessage')">
                 </h5>
 			</div>
 		</template>
