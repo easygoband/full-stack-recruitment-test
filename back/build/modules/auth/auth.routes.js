@@ -35,4 +35,6 @@ router.post('/login', [...auth_validator_1.loginValidators, validator_1.validate
 router.get('/users', Controller.userList);
 router.get('/users/:userId', Controller.userInfo);
 router.put('/user/location', passport_1.Auth.authenticate, [...auth_validator_1.locationValidators, validator_1.validateBody], Controller.udpateLocation);
+router.put('/users/reports', [...auth_validator_1.locationValidators, validator_1.validateBody], Controller.userReports);
+router.post('/user/infected/:userId', passport_1.Auth.authenticate, Controller.userInfected);
 exports.default = router;

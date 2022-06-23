@@ -14,6 +14,7 @@ export interface IUser extends Document {
   created_at: Date
   updated_at: Date
   itemsPoints: number
+  reports: IUserIds[]
   encryptPassword(password: string): string
   points(): void
   comparePassword(password: string): boolean
@@ -31,6 +32,10 @@ export interface IItems extends Document {
   medication: string,
   ammunition: string
 }
+export interface IUserIds extends Document {
+  user: string,
+  _id: string,
+}
 
 const LocationSchema = new mongoose.Schema<ILocation>({
   latitude: { type: String, required: true }, 
@@ -44,12 +49,18 @@ const ItemsSchema = new mongoose.Schema<IItems>({
   ammunition: { type: String, required: true }, 
 })
 
+const UserIdsSchema = new mongoose.Schema<IUserIds>({
+  user: { type: String }, 
+  _id: { type: String }, 
+})
+
 const UserSchema = new mongoose.Schema<IUser>({
   age: { type: Number, required: true },
   itemsPoints: { type: Number },
   name: { type: String, required: true , trim: true},
   gender: { type: String, required: true },
   infected: { type: Boolean, default: false },
+  reports: { type: [UserIdsSchema] },
   location: LocationSchema,
   items: ItemsSchema,
   created_at: { type: Date, default: new Date() },
@@ -90,8 +101,6 @@ UserSchema.methods.points = function () {
   }
   this.to
   this.itemsPoints = total;
-  console.log(this);
-  
 }
 
 mongoose.connect(settings.DB.URI);

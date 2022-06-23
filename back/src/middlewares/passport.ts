@@ -10,13 +10,8 @@ export const JWTStrategy = new Strategy(
   },
   async (payload, done) => {
     try {
-      console.log('JWTStrategy', payload);
-
       const user = await User.findOne({ _id: payload._id})
-      console.log( user );
-      
       if (user) return done(null, user)
-
       return done(null, false)
     } catch (error) {
       done(error, false)
@@ -33,10 +28,7 @@ export const Auth = {
       return passport.authenticate("jwt", {
           session: false
       }, (err, user, info) => {
-        console.log('Middleware ');
-        
           if (err) {
-              console.log(err);
               return next(err);
           }
           if (!user) {

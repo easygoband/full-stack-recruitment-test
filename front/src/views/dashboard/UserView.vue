@@ -3,14 +3,15 @@
 	import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router'
 	import { useI18n } from 'vue-i18n' 
 	import { GET_GENDER } from '@/utils/methods';
-
+	import UserInfectedModal from './components/UserInfectedModal.vue'
 
 	import { useUserStore } from '@/stores/userStore'
 	const userStore = useUserStore()
 	const route = useRoute();
 
 	const { locale, t: $t } = useI18n({})
-	 
+	const infectedModal = ref(false);
+
 	onMounted( () => {
 		userStore.fnApiGetUserInfo(route.params.userId);
 	})
@@ -20,6 +21,7 @@
 
 <template>
 	<div class=" p-5 ">
+		<UserInfectedModal :survivorId="route.params.userId" v-if="infectedModal" @close=" infectedModal = false " />
 		<div v-if="!userStore.loading.survivorInfo">
 			<div class="row mb-4">
 				<div class="col-12 border-bottom pb-4 border-primary">
@@ -64,8 +66,8 @@
 										<span v-text="$t('general.return')"></span>
 									</router-link>
 								</div>
-								<div class="col-auto ">
-									<button class="btn btn-danger w-100">
+								<div class="col-auto" v-if="!userStore.survivorInfo.infected">
+									<button class="btn btn-danger w-100" @click="infectedModal= true">
 										<i class="bi-radioactive me-2"></i>
 										<span v-text="$t('general.reportContagion')"></span>
 									</button>
@@ -75,7 +77,6 @@
 					</div>
 				</div>
 			</div>
-
 
 			<div class="row">
 				<div class="col-5 pe-4">

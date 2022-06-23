@@ -1,5 +1,5 @@
 <script setup>
-	import { ref, reactive, onMounted,  } from 'vue';
+	import { ref, reactive, onMounted, onBeforeMount  } from 'vue';
 	import { RouterLink, RouterView, useRouter } from 'vue-router'
 	import { useI18n } from 'vue-i18n' 
 	import { useForm, useField } from 'vee-validate';
@@ -7,7 +7,7 @@
 	import { useUserStore } from '@/stores/userStore'
 	import { GET_GENDER } from '@/utils/methods';
 
-	import UserInventory from './components/UserInventory.vue'  
+	import UserInventoryModal from './components/UserInventoryModal.vue'
 
 	const userStore = useUserStore()
 	const router = useRouter();
@@ -15,7 +15,7 @@
 
 	const { locale, t: $t } = useI18n({})
 	 
-	onMounted( () => {
+	onBeforeMount( () => {
         userStore.fnGetUserData();
 	})
 </script>
@@ -24,8 +24,7 @@
 
 <template>
 	<div class="container-fluid">
-        <!-- <UserInventory /> -->
-         <UserInventory v-if="inventoryModal" @close=" inventoryModal = false " />
+         <UserInventoryModal v-if="inventoryModal" @close=" inventoryModal = false " />
 		<div class="row align-items-center justify-content-center zs-dashboard">
 			<div class="col-11 ">
 				<div class="card  animate__animated animate__fadeIn">

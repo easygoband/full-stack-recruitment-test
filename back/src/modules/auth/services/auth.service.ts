@@ -6,7 +6,6 @@ export class AuthService {
 
   async signup(user: IUser) {    
     const dbUser = await User.findOne({ name: user.name })
-    console.log( dbUser );
     
     if (dbUser) throw new ErrorHandler(400, 'Name already exists')
 
@@ -54,5 +53,41 @@ export class AuthService {
     userInfo?.points();
     return userInfo;
   }
+
+  async userInfected( survivorId: string, userId: string  ) {
+    let success = false;
+    const conditions = {
+      _id: survivorId,
+      'reports._id': { $ne: userId }
+    };
+    const update = {
+      $addToSet: { reports: { _id: userId} },
+    }
+
+    const userInfo = await User.findOneAndUpdate(conditions, update, {new: true});
+
+    if( userInfo && (userInfo.reports.length > 2) ){
+      userInfo.infected = true;
+      userInfo.save()
+      success = true;
+    }
+
+    return {success};
+  }
+
+  async userReports( ) {
+
+    const userList = await User.find();
+
+    // if( userInfo && (userInfo.reports.length > 2) ){
+    //   userInfo.infected = true;
+    //   userInfo.save()
+    //   success = true;
+    // }
+
+    return userList;
+  }
+
+   
 
 }

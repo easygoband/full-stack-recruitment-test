@@ -26,6 +26,7 @@ export const useUserStore = defineStore({
         loading: {
             data: false,
             survivorInfo: false,
+            infected: false,
         },
         userList: []
     }),
@@ -124,10 +125,7 @@ export const useUserStore = defineStore({
             setTimeout(() => {
                 this.fnLoading({survivorInfo:false});
             }, 200);
-        },
-
-
-        
+        },        
 
         async fnApiUpdateLocation(payload) {
             this.fnLoading({location:true});
@@ -136,20 +134,38 @@ export const useUserStore = defineStore({
                    userInfo: { ...this.userinfo, ...{location: payload }}
                })
             }).catch(error => {
-                // notify({
-                //     type: 'error',
-                //     title: "Login",
-                //     text: "Invalid email or password",
-                // });
             })
             setTimeout(() => {
                 this.fnLoading({location:false});
             }, 200);
         },
 
-        
+        async fnApiUserInfected(userId) {
+            this.fnLoading({infected:true});
+            await userService.post(`/user/infected/${userId}`).then(res => {
+                if (res.data.success == true) {
+                    this.$patch( {
+                        survivorInfo: { ...this.survivorInfo, ...{ infected: true }}
+                    })
+                }
+            }).catch(error => {
+            })
+            setTimeout(() => {
+                this.fnLoading({infected:false});
+            }, 200);
+        },
 
-
+        async fnApiGetReports() {
+            this.fnLoading({reports:true});
+            await userService.get(`/users/reports`).then(res => {
+                //  this.$patch( {
+                //     reports: res.data,
+                //  })
+            }).catch(error => { })
+            setTimeout(() => {
+                this.fnLoading({reports:false});
+            }, 200);
+        },
     },
 })
 

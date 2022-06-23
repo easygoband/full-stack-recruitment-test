@@ -63,3 +63,24 @@ export async function userInfo(req: Request, res: Response, next: NextFunction):
     next(error)
   }
 }
+
+export async function userInfected(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const authService = new AuthService()
+ 
+  try {
+    const user = await authService.userInfected( req.params.userId , req.user._id )
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+}
+export async function userReports(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const authService = new AuthService()
+ 
+  try {
+    const user = await authService.userReports()
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+}

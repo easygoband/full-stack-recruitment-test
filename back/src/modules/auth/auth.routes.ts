@@ -16,5 +16,9 @@ router.get('/users/:userId', Controller.userInfo)
 
 router.put('/user/location', Auth.authenticate , [...locationValidators, validateBody]  , Controller.udpateLocation)
 
+router.put('/users/reports' , [...locationValidators, validateBody]  , Controller.userReports)
+
+router.post('/user/infected/:userId', Auth.authenticate, Controller.userInfected)
+
 
 export default router

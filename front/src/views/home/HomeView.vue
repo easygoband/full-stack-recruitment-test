@@ -27,7 +27,7 @@
 	<div class="container-fluid">
 		<div class="row align-items-center justify-content-center vh-100 zs-login">
 			<div class="col-11  col-lg-6 col-xl-5">
-				<div class="card  animate__animated animate__jackInTheBox">
+				<div class="card  animate__animated animate__fadeIn">
 					<div class="card-header">
 						<h1 class="text-center" v-text="$t('general.survive')"></h1>
 					</div>
@@ -35,17 +35,16 @@
 						<div class=" d-flex flex-column justify-content-center align-items-center animate__animated animate__fadeIn" v-if="!signupForm">
 							<div class="w-100" v-if="!userStore.loading.data">
 								<div class="row align-items-center" v-for=" (user,index ) in userStore.userList" :key="index">
-									<div class="col-auto">
-										<h3 class="m-0">
-											<i class="bi bi-file-person-fill"></i>
-										</h3>
-									</div>
 									<div class="col-4">
-										<p class="m-0" v-text="user.name">
+										<p class="m-0">
+											<span  v-text="user.name"></span> <br>
+											<small v-if="user.infected">
+												<span class="badge bg-danger" v-text="$t('general.infected')"></span>
+											</small>
 										</p>
 									</div>
 									<div class="col-auto ms-auto">
-										<button class="btn btn-outline-primary btn-sm" v-text="$t('general.enter')" @click="userStore.fnApiLogin(user.name)">
+										<button class="btn btn-outline-primary btn-sm" :disabled="user.infected" v-text="$t('general.enter')" @click="userStore.fnApiLogin(user.name)">
 										</button>
 									</div>
 									<div class="col-12">

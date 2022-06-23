@@ -22,9 +22,7 @@ exports.JWTStrategy = new passport_jwt_1.Strategy({
     secretOrKey: settings_1.settings.SECRET,
 }, (payload, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log('JWTStrategy', payload);
         const user = yield user_model_1.User.findOne({ _id: payload._id });
-        console.log(user);
         if (user)
             return done(null, user);
         return done(null, false);
@@ -42,9 +40,7 @@ exports.Auth = {
         return passport_1.default.authenticate("jwt", {
             session: false
         }, (err, user, info) => {
-            console.log('Middleware ');
             if (err) {
-                console.log(err);
                 return next(err);
             }
             if (!user) {

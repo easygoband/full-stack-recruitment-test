@@ -16,7 +16,6 @@ class AuthService {
     signup(user) {
         return __awaiter(this, void 0, void 0, function* () {
             const dbUser = yield user_model_1.User.findOne({ name: user.name });
-            console.log(dbUser);
             if (dbUser)
                 throw new error_handler_1.ErrorHandler(400, 'Name already exists');
             const newUser = new user_model_1.User(user);
@@ -64,6 +63,36 @@ class AuthService {
             const userInfo = yield user_model_1.User.findOne({ _id: userId });
             userInfo === null || userInfo === void 0 ? void 0 : userInfo.points();
             return userInfo;
+        });
+    }
+    userInfected(survivorId, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let success = false;
+            const conditions = {
+                _id: survivorId,
+                'reports._id': { $ne: userId }
+            };
+            const update = {
+                $addToSet: { reports: { _id: userId } },
+            };
+            const userInfo = yield user_model_1.User.findOneAndUpdate(conditions, update, { new: true });
+            if (userInfo && (userInfo.reports.length > 2)) {
+                userInfo.infected = true;
+                userInfo.save();
+                success = true;
+            }
+            return { success };
+        });
+    }
+    userReports() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userList = yield user_model_1.User.find();
+            // if( userInfo && (userInfo.reports.length > 2) ){
+            //   userInfo.infected = true;
+            //   userInfo.save()
+            //   success = true;
+            // }
+            return userList;
         });
     }
 }
