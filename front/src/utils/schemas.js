@@ -53,11 +53,16 @@ setLocale({
     }
   });
 
-  
-
-export const LoginSchema = object({
-    email: string().email().required(),
-    password: string().min(8).required(),
+export const NewUserSchema = object({
+    name: string().min(3).required(),
+    age: number().required(),
+    gender: string().required(),
+    latitude: string().required(),
+    longitude: string().required(),
+    water: number().min(0).required(),
+    food: number().min(0).required(),
+    medication: number().min(0).required(),
+    ammunition: number().min(0).required(),
 });
 
 export const PasswordRecoverySchema = object({
@@ -67,31 +72,4 @@ export const PasswordRecoverySchema = object({
 export const PasswordResetSchema = object({
     password: string().min(8).required(),
     confirmPassword: string().oneOf([ref('password'), null], i18n.global.t('validations.mustMatch')).min(8).required()
-});
-
-
-export const AddMedicineSchema = object({
-    name: string().required().min(2),
-    dose: number().typeError(i18n.global.t('validations.required')).required().min(1),
-    unit: string().required(),
-    instructions: string().min(5),
-    frequency: number().required(),
-    duration: number().required(),
-    expiration: boolean(),
-});
-
-export const AllergySchema = object({
-    substance: string().min(3).required(),
-    category: string().required(),
-    // type: array().required().min(1),
-    type: array()
-    .min(1)
-    .required()
-    .nullable(),
-});
-
-export const invitePatientSchema = object({
-    email: string().email().required(),
-    phone: number().typeError(i18n.global.t('validations.required')).required().min(1000000000).max(9999999999),
-    message: string().min(3).required()
 });

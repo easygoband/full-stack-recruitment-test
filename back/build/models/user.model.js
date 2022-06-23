@@ -19,12 +19,24 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const settings_1 = require("@config/settings");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const LocationSchema = new mongoose_1.default.Schema({
+    latitude: { type: String, required: true },
+    longitude: { type: String, required: true },
+});
+const ItemsSchema = new mongoose_1.default.Schema({
+    water: { type: String, required: true },
+    food: { type: String, required: true },
+    medication: { type: String, required: true },
+    ammunition: { type: String, required: true },
+});
 const UserSchema = new mongoose_1.default.Schema({
     age: { type: Number, required: true },
+    itemsPoints: { type: Number },
     name: { type: String, required: true, trim: true },
     gender: { type: String, required: true },
-    location: { type: Map, of: String },
-    items: { type: Map, of: Number, required: true },
+    infected: { type: Boolean, default: false },
+    location: LocationSchema,
+    items: ItemsSchema,
     created_at: { type: Date, default: new Date() },
     updated_at: { type: Date, default: new Date() },
 });
@@ -45,6 +57,19 @@ UserSchema.methods.encryptPassword = function (password) {
 UserSchema.methods.comparePassword = function (password) {
     let user = this.toObject();
     return bcrypt_1.default.compareSync(password, user.password);
+};
+UserSchema.methods.points = function () {
+    let user = this.toObject();
+    let total = 0;
+    if (user.items) {
+        total += user.items.water * 4;
+        total += user.items.food * 4;
+        total += user.items.medication * 4;
+        total += user.items.ammunition * 4;
+    }
+    this.to;
+    this.itemsPoints = total;
+    console.log(this);
 };
 mongoose_1.default.connect(settings_1.settings.DB.URI);
 exports.User = mongoose_1.default.model('User', UserSchema);

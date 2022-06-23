@@ -33,7 +33,6 @@ export async function udpateLocation(req: Request, res: Response, next: NextFunc
   const authService = new AuthService()
 
   const { latitude, longitude} = req.body;
-  // const { _id } = req.user ;
 
   try {
     const user = await authService.udpateLocation( latitude, longitude , req.user._id  )
@@ -43,3 +42,24 @@ export async function udpateLocation(req: Request, res: Response, next: NextFunc
   }
 }
 
+export async function userList(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const authService = new AuthService()
+ 
+  try {
+    const userList = await authService.userList( req.query.userId  )
+    res.json(userList)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export async function userInfo(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const authService = new AuthService()
+ 
+  try {
+    const user = await authService.userInfo( req.params.userId  )
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+}

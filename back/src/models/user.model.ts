@@ -8,24 +8,53 @@ export interface IUser extends Document {
   name: string
   age: number
   gender: string
+  infected: boolean
   location: Map<string, string>
   items: Map<string, string>
   created_at: Date
   updated_at: Date
+  itemsPoints: number
   encryptPassword(password: string): string
+  points(): void
   comparePassword(password: string): boolean
   createToken(): string
 }
 
+export interface ILocation extends Document {
+  latitude: string,
+  longitude: string
+}
+
+export interface IItems extends Document {
+  water: string,
+  food: string,
+  medication: string,
+  ammunition: string
+}
+
+const LocationSchema = new mongoose.Schema<ILocation>({
+  latitude: { type: String, required: true }, 
+  longitude: { type: String, required: true }, 
+})
+
+const ItemsSchema = new mongoose.Schema<IItems>({
+  water: { type: String, required: true }, 
+  food: { type: String, required: true }, 
+  medication: { type: String, required: true }, 
+  ammunition: { type: String, required: true }, 
+})
+
 const UserSchema = new mongoose.Schema<IUser>({
   age: { type: Number, required: true },
+  itemsPoints: { type: Number },
   name: { type: String, required: true , trim: true},
   gender: { type: String, required: true },
-  location: {  type: Map,  of: String },
-  items: { type: Map,  of: Number , required: true},
+  infected: { type: Boolean, default: false },
+  location: LocationSchema,
+  items: ItemsSchema,
   created_at: { type: Date, default: new Date() },
   updated_at: { type: Date, default: new Date() },
-})
+},)
 
 UserSchema.methods.toJSON = function () {
   const user: any = this.toObject()
@@ -48,6 +77,21 @@ UserSchema.methods.encryptPassword = function (password: string) {
 UserSchema.methods.comparePassword = function (password: string) {
   let user = this.toObject()
   return bcrypt.compareSync(password, user.password)
+}
+
+UserSchema.methods.points = function () {
+  let user = this.toObject();
+  let total = 0;
+  if(user.items){
+    total += user.items.water * 4;
+    total += user.items.food * 4;
+    total += user.items.medication * 4;
+    total += user.items.ammunition * 4;
+  }
+  this.to
+  this.itemsPoints = total;
+  console.log(this);
+  
 }
 
 mongoose.connect(settings.DB.URI);

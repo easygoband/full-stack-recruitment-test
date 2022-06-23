@@ -92,14 +92,6 @@
 		"save": "Salvar",
 		"saveDraft": "Guardar borrador",
 		"schedule": "Programar",
-		"selectCarrier": "Seleccione Carrier",
-		"selectOptions": {
-			"archived": {
-				"archived": "Archivado",
-				"unfiled": "Sin archivar"
-			},
-			"archived-archived": ""
-		},
 		"sells": "Vende",
 		"service": "Servicio",
 		"settings": "Ajustes",
@@ -128,7 +120,36 @@
 		"assignCourse": "Asignar curso",
 		"confirmation": "Confirmar",
 		"deleteAllergieQuestion": "Estás seguro que deseas eliminar esta alergia?",
-		"cancel": "Cancelar"
+		"cancel": "Cancelar",
+		"signin": "Registrarse",
+		"back": "Atrás",
+		"age": "Edad",
+		"gender": "Género",
+		"male": "Masculino", 
+		"female": "Femenino",
+		"nonBinary": "No binario",
+		"latitude": "Latitud",
+		"longitude": "Longitud",
+		"location": "Ubicación",
+		"water": "Agua",
+		"food":"Comida",
+		"medication": "Medicamento",
+		"ammunition": "Municiones",
+		"inventory": "Inventario",
+		"enter": "Ingresar",
+		"survive": "Sobrevive",
+		"user": "Usuario",
+		"infected": "Infectado",
+		"status": "Estado",
+		"healthy": "Saludable",
+		"return": "Regresar",
+		"item": "Artículo",
+		"quantity": "Cantidad",
+		"points": "Puntos",
+		"reportContagion": "Reportar contagio",
+		"updateLocation": "Actualizar ubicación",
+		"close": "Cerrar",
+		"lastLocation": "Última ubicación"
 	},
 	"toasted": {
 		"error": {

@@ -10,7 +10,11 @@ router.post('/signup', [...signupValidators, validateBody], Controller.signup)
 //
 router.post('/login', [...loginValidators, validateBody], Controller.login)
 
-router.post('/user/location', Auth.authenticate , [...locationValidators, validateBody]  , Controller.udpateLocation)
+router.get('/users', Controller.userList)
+
+router.get('/users/:userId', Controller.userInfo)
+
+router.put('/user/location', Auth.authenticate , [...locationValidators, validateBody]  , Controller.udpateLocation)
 
 
 export default router

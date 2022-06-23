@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.udpateLocation = exports.login = exports.signup = void 0;
+exports.userInfo = exports.userList = exports.udpateLocation = exports.login = exports.signup = void 0;
 const services_1 = require("./services");
 function signup(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -43,7 +43,6 @@ function udpateLocation(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const authService = new services_1.AuthService();
         const { latitude, longitude } = req.body;
-        // const { _id } = req.user ;
         try {
             const user = yield authService.udpateLocation(latitude, longitude, req.user._id);
             res.json(user);
@@ -54,3 +53,29 @@ function udpateLocation(req, res, next) {
     });
 }
 exports.udpateLocation = udpateLocation;
+function userList(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const authService = new services_1.AuthService();
+        try {
+            const userList = yield authService.userList(req.query.userId);
+            res.json(userList);
+        }
+        catch (error) {
+            next(error);
+        }
+    });
+}
+exports.userList = userList;
+function userInfo(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const authService = new services_1.AuthService();
+        try {
+            const user = yield authService.userInfo(req.params.userId);
+            res.json(user);
+        }
+        catch (error) {
+            next(error);
+        }
+    });
+}
+exports.userInfo = userInfo;

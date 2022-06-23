@@ -32,5 +32,7 @@ const router = (0, express_1.Router)();
 router.post('/signup', [...auth_validator_1.signupValidators, validator_1.validateBody], Controller.signup);
 //
 router.post('/login', [...auth_validator_1.loginValidators, validator_1.validateBody], Controller.login);
-router.post('/user/location', passport_1.Auth.authenticate, [...auth_validator_1.locationValidators, validator_1.validateBody], Controller.udpateLocation);
+router.get('/users', Controller.userList);
+router.get('/users/:userId', Controller.userInfo);
+router.put('/user/location', passport_1.Auth.authenticate, [...auth_validator_1.locationValidators, validator_1.validateBody], Controller.udpateLocation);
 exports.default = router;

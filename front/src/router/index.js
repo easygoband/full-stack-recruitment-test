@@ -15,57 +15,34 @@ const router = createRouter({
   routes: [{
       path: '/',
       name: 'home',
-      component: () => view('HomeView'),
+      component: () => view('home/HomeView'),
     },
     // {
-    //   path: '/pincode',
-    //   name: 'pincode',
-    //   component:() => view('PinCodeView'),
-    // },
-    // {
-    //   path: '/qrcode',
-    //   name: 'qrcode',
-    //   component:() => view('QRCodeView'),
-    // },
-    // {
-    //   path: '/reset-pwd/:id',
-    //   name: 'ResetPassword',
-    //   component: () => view('ResetPasswordView')
-    // },
-    // {
-    //   path: '/styles',
-    //   name: 'styles',
-    //   component: () => view('stylesView'),
-    // },
-    // {
     //   path: '/dashboard',
-    //   // name: 'dashboard',
-    //   component: () => view('dashboard/IndexView'),
-    //   meta: {
-    //     auth: true,
-    //   },
-    //   children: [{
-    //       path: '',
-    //       name: 'dashboard',
-    //       component: () => view('dashboard/DashboardView')
-    //     },
-    //     {
-    //       path: 'patients',
-    //       name: 'patients',
-    //       component: () => view('dashboard/PatientsView')
-    //     },
-    //     {
-    //       path: 'patients/:id',
-    //       name: 'patientInformation',
-    //       component: () => view('dashboard/patient/PatientView')
-    //     },
-    //     {
-    //       path: 'configuration',
-    //       name: 'configuration',
-    //       component: () => view('dashboard/ConfigurationView')
-    //     },
-    //   ]
-    // }
+    //   name: 'dashboard',
+    //   component: () => view('dashboard/DashboardView'),
+    // },
+
+    {
+      path: '/dashboard',
+      // name: 'dashboard',
+      component: () => view('dashboard/DashboardView'),
+      meta: {
+        auth: true,
+      },
+      children: [{
+          path: '',
+          name: 'dashboard',
+          component: () => view('dashboard/UsersView')
+        },
+        {
+          path: 'users/:userId',
+          name: 'user',
+          component: () => view('dashboard/UserView')
+        },
+      ]
+    }
+
   ]
 })
 

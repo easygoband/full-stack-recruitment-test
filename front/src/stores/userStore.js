@@ -1,142 +1,160 @@
-import { defineStore,  acceptHMRUpdate } from 'pinia';
-import authService from '@/plugins/authService';
-import clinicianService from '@/plugins/clinicianService';
-import { SHA1 } from '@/utils/methods.js';
+import {
+    defineStore,
+    acceptHMRUpdate
+} from 'pinia';
+import userService from '@/plugins/userService';
+
+const userModel =  {
+    _id: null,
+    location:{
+        latitude: null,
+        longitude: null,
+    },
+    items:{
+        water: 0,
+        food: 0,
+        medication: 0,
+        ammunition: 0,
+    }
+}
 
 export const useUserStore = defineStore({
     id: 'user',
     state: () => ({
-        name: '',
-        initials: '',
-        qrCode: null,
-        login: false,
-        loading:{
-            data: false
+        userInfo: {...userModel},
+        survivorInfo: {...userModel},
+        loading: {
+            data: false,
+            survivorInfo: false,
         },
-        profilePicture: "",
-        tempData: {}
+        userList: []
     }),
 
     actions: {
         fnLogout() {
             this.$patch({
-                name: null,
-                login: false,
+                userInfo: {...userModel},
             })
             localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            this.$router.push(`/`);
         },
-
-        async fnApiLogin(email, password) {
-            const payload = {
-                user: email,
-                password: SHA1(password),
-                isPatient: false,
-                type: "password"
-            };
-
+        fnLoading(loading){
             this.$patch({
-                 tempData: payload
+                loading: { ...this.loading, ...loading }
             })
+        },
 
-            await authService.post('/auth/login', payload).then(res => {
-                if (res.data.verified) {
-                    this.$router.push(`/pincode`);
-                } else {
-                    this.$patch({
-                        qrCode: res.data.qrCode,
-                    })
-                    this.$router.push(`/qrcode`);
+        fnSaveUserData(data){
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            this.$router.push(`/dashboard`);
+        },
+
+        fnGetUserData(){
+            const data = localStorage.getItem('user');
+            if(data){
+                this.userInfo = JSON.parse(data) ;
+            }
+        },
+
+        async fnApiLogin(name) {
+            const payload = {
+                name
+            };
+
+            this.fnLoading({data:true});
+
+            await userService.post('/login', payload).then(res => {
+                if (res.data.token) {
+                    this.fnSaveUserData(res.data);
                 }
-            }).catch( error => { 
-                notify({
-                    type: 'error',
-                    title: "Login",
-                    text: "Invalid email or password",
-                });
-            } )
-        },
-
-        async fnApiSendPinCode(token) {
-            const payload = {
-                ...this.tempData,
-                token,
-            };
-            await authService.post('/auth/login', payload).then(res => {
-                notify({
-                    type: 'success',
-                    title: "Login",
-                    text: "You have been logged in!",
-                });
-
-                this.$patch({ login: true, })
-                localStorage.setItem('token', res.data.jwt )
-                setTimeout(() => {
-                    this.$router.push(`/dashboard`);
-                }, 200);
-            }).catch( error => { 
-                notify({
-                    type: 'error',
-                    title: "Login",
-                    text: "Invalid token, please try again",
-                });
-            } )
-        },
-            
-        async fnResetPasword(id, password) {
-            const payload = {
-                password: SHA1(password),
-            };
-
-            await clinicianService
-                .post(`/password/reset/${id}`, payload)
-                .then((response) => {
-                    this.$router.push('/');
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-
-
-        async fnMe() {
-            await authService.get('/auth/me').then(res => {
-                let nameList = res.data.name.split(' ')
-                let initials = ''
-                nameList.forEach(name => {
-                    initials += name[0]
-                });
-
-                imageExists(res.data.profilePicture)
-                    .then(ok => {
-                        if (ok) this.$patch({ name: res.data.name, profilePicture: res.data.profilePicture, initials: initials.slice(0, 2) })
-                        else this.$patch({ name: res.data.name, profilePicture: '', initials: initials.slice(0, 2) })
-                    })
-
-
-
             }).catch(error => {
-                notify({
-                    type: 'error',
-                    title: "Obteniendo datos de usuario",
-                    text: "Token invalido, Intentalo de nuevo",
-                });
+                // notify({
+                //     type: 'error',
+                //     title: "Login",
+                //     text: "Invalid email or password",
+                // });
+            })
+            setTimeout(() => {
+                this.fnLoading({data:false});
+            }, 200);
+        },
+
+        async fnApiSignup(payload) {
+            await userService.post('/signup', payload).then(res => {
+                if (res.data.token) {
+                    this.fnSaveUserData(res.data);
+                }
+            }).catch(error => {
+                // notify({
+                //     type: 'error',
+                //     title: "Login",
+                //     text: "Invalid email or password",
+                // });
             })
         },
+
+
+        async fnApiGetUserList(isTrue) {
+            this.fnLoading({data:true});
+            let params = {};
+            if( isTrue ){
+                params = {
+                    userId: this.userInfo._id
+                };
+            }
+            await userService.get('/users',{params}).then(res => {
+                 this.$patch( {
+                    userList: res.data,
+                 })
+            }).catch(error => { })
+            setTimeout(() => {
+                this.fnLoading({data:false});
+            }, 200);
+        },
+
+        async fnApiGetUserInfo(userId) {
+            this.fnLoading({survivorInfo:true});
+            await userService.get(`/users/${userId}`).then(res => {
+                 this.$patch( {
+                    survivorInfo: res.data,
+                 })
+            }).catch(error => { })
+            setTimeout(() => {
+                this.fnLoading({survivorInfo:false});
+            }, 200);
+        },
+
+
+        
+
+        async fnApiUpdateLocation(payload) {
+            this.fnLoading({location:true});
+            await userService.put('/user/location', payload).then(res => {
+               this.$patch( {
+                   userInfo: { ...this.userinfo, ...{location: payload }}
+               })
+            }).catch(error => {
+                // notify({
+                //     type: 'error',
+                //     title: "Login",
+                //     text: "Invalid email or password",
+                // });
+            })
+            setTimeout(() => {
+                this.fnLoading({location:false});
+            }, 200);
+        },
+
+        
 
 
     },
 })
 
-if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
-  }
-  
-
-function imageExists(url) {
-    return new Promise(resolve => {
-        let image = new Image()
-        image.addEventListener('load', () => resolve(true))
-        image.addEventListener('error', () => resolve(false))
-        image.src = url
-    })
+if (
+    import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useUserStore,
+        import.meta.hot))
 }
