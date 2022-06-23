@@ -8,10 +8,12 @@
 	import { GET_GENDER } from '@/utils/methods';
 
 	import UserInventoryModal from './components/UserInventoryModal.vue'
+	import UserReportModal from './components/ReportModal.vue'
 
 	const userStore = useUserStore()
 	const router = useRouter();
 	const inventoryModal = ref(false);
+	const reportModal = ref(false);
 
 	const { locale, t: $t } = useI18n({})
 	 
@@ -25,6 +27,7 @@
 <template>
 	<div class="container-fluid">
          <UserInventoryModal v-if="inventoryModal" @close=" inventoryModal = false " />
+         <UserReportModal v-if="reportModal" @close=" reportModal = false " />
 		<div class="row align-items-center justify-content-center zs-dashboard">
 			<div class="col-11 ">
 				<div class="card  animate__animated animate__fadeIn">
@@ -34,7 +37,6 @@
                                 <h5 class="mb-1">
                                     <strong v-text="$t('general.name') + ': '"></strong>
                                     <span v-text=" userStore.userInfo.name + '   '"></span> 
-                                    <!-- <span class="badge" :class="userStore.userInfo.infected ? 'bg-danger' : 'bg-success' " v-text="userStore.userInfo.infected ? $t('general.infected') : $t('general.healthy')"></span> -->
                                 </h5>
                                 <p class="mb-1">
                                 <small>
@@ -50,6 +52,12 @@
                                     <span v-text=" userStore.userInfo.itemsPoints "></span>
                                 </small>
                                 </p>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-outline-primary " @click="reportModal = true">
+                                    <i class=" bi-card-checklist me-2"></i>
+                                    <span v-text="$t('general.report')"></span>
+                                </button>
                             </div>
                             <div class="col-auto">
                                 <button class="btn btn-primary " @click="inventoryModal = true">

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userReports = exports.userInfected = exports.userInfo = exports.userList = exports.udpateLocation = exports.login = exports.signup = void 0;
+exports.usersReports = exports.userInfected = exports.userInfo = exports.userList = exports.udpateLocation = exports.login = exports.signup = void 0;
 const services_1 = require("./services");
 function signup(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -92,16 +92,16 @@ function userInfected(req, res, next) {
     });
 }
 exports.userInfected = userInfected;
-function userReports(req, res, next) {
+function usersReports(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const authService = new services_1.AuthService();
         try {
-            const user = yield authService.userReports();
-            res.json(user);
+            const report = yield authService.usersReports();
+            res.json(report);
         }
         catch (error) {
             next(error);
         }
     });
 }
-exports.userReports = userReports;
+exports.usersReports = usersReports;

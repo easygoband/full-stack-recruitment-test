@@ -24,10 +24,10 @@ const LocationSchema = new mongoose_1.default.Schema({
     longitude: { type: String, required: true },
 });
 const ItemsSchema = new mongoose_1.default.Schema({
-    water: { type: String, required: true },
-    food: { type: String, required: true },
-    medication: { type: String, required: true },
-    ammunition: { type: String, required: true },
+    water: { type: Number, required: true },
+    food: { type: Number, required: true },
+    medication: { type: Number, required: true },
+    ammunition: { type: Number, required: true },
 });
 const UserIdsSchema = new mongoose_1.default.Schema({
     user: { type: String },

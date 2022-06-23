@@ -74,12 +74,12 @@ export async function userInfected(req: Request, res: Response, next: NextFuncti
     next(error)
   }
 }
-export async function userReports(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function usersReports(req: Request, res: Response, next: NextFunction): Promise<void> {
   const authService = new AuthService()
  
   try {
-    const user = await authService.userReports()
-    res.json(user)
+    const report = await authService.usersReports()
+    res.json(report)
   } catch (error) {
     next(error)
   }

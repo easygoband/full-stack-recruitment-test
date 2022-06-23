@@ -10,7 +10,7 @@ export interface IUser extends Document {
   gender: string
   infected: boolean
   location: Map<string, string>
-  items: Map<string, string>
+  items: IItems
   created_at: Date
   updated_at: Date
   itemsPoints: number
@@ -27,10 +27,10 @@ export interface ILocation extends Document {
 }
 
 export interface IItems extends Document {
-  water: string,
-  food: string,
-  medication: string,
-  ammunition: string
+  water: number,
+  food: number,
+  medication: number,
+  ammunition: number
 }
 export interface IUserIds extends Document {
   user: string,
@@ -43,10 +43,10 @@ const LocationSchema = new mongoose.Schema<ILocation>({
 })
 
 const ItemsSchema = new mongoose.Schema<IItems>({
-  water: { type: String, required: true }, 
-  food: { type: String, required: true }, 
-  medication: { type: String, required: true }, 
-  ammunition: { type: String, required: true }, 
+  water: { type: Number, required: true }, 
+  food: { type: Number, required: true }, 
+  medication: { type: Number, required: true }, 
+  ammunition: { type: Number, required: true }, 
 })
 
 const UserIdsSchema = new mongoose.Schema<IUserIds>({

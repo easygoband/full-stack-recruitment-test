@@ -18,15 +18,36 @@ const userModel =  {
     }
 }
 
+const reportModel =  {
+    users: {
+		points: 0,
+		total: 0,
+		water: 0,
+		food: 0,
+		medication:  0,
+		ammunition: 0,
+	},
+	infected: {
+		points: 0,
+		total:0,
+		water:0,
+		food:0,
+		medication: 0,
+		ammunition: 0,
+	}
+}
+
 export const useUserStore = defineStore({
     id: 'user',
     state: () => ({
         userInfo: {...userModel},
         survivorInfo: {...userModel},
+        report: {...reportModel},
         loading: {
             data: false,
             survivorInfo: false,
             infected: false,
+            report: false,
         },
         userList: []
     }),
@@ -71,11 +92,6 @@ export const useUserStore = defineStore({
                     this.fnSaveUserData(res.data);
                 }
             }).catch(error => {
-                // notify({
-                //     type: 'error',
-                //     title: "Login",
-                //     text: "Invalid email or password",
-                // });
             })
             setTimeout(() => {
                 this.fnLoading({data:false});
@@ -88,11 +104,6 @@ export const useUserStore = defineStore({
                     this.fnSaveUserData(res.data);
                 }
             }).catch(error => {
-                // notify({
-                //     type: 'error',
-                //     title: "Login",
-                //     text: "Invalid email or password",
-                // });
             })
         },
 
@@ -155,15 +166,15 @@ export const useUserStore = defineStore({
             }, 200);
         },
 
-        async fnApiGetReports() {
-            this.fnLoading({reports:true});
-            await userService.get(`/users/reports`).then(res => {
-                //  this.$patch( {
-                //     reports: res.data,
-                //  })
+        async fnApiGetReport() {
+            this.fnLoading({report:true});
+            await userService.get(`/users/report`).then(res => {
+                 this.$patch( {
+                    report: res.data,
+                 })
             }).catch(error => { })
             setTimeout(() => {
-                this.fnLoading({reports:false});
+                this.fnLoading({report:false});
             }, 200);
         },
     },

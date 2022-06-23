@@ -1,6 +1,6 @@
 import { IUser, User } from '@models/user.model'
 import { ErrorHandler } from '@middlewares/error_handler'
-import mongoose from 'mongoose'
+import {PipelineStage} from 'mongoose'
 
 export class AuthService {
 
@@ -75,19 +75,46 @@ export class AuthService {
     return {success};
   }
 
-  async userReports( ) {
+  async usersReports( ) {
+    const userList = await User.find( {} );
+    let report = {
+      users: {
+        points: 0,
+        total: 0,
+        water: 0,
+        food: 0,
+        medication: 0,
+        ammunition: 0,
+      },
+      infected: {
+        points: 0,
+        total: 0,
+        water: 0,
+        food: 0,
+        medication: 0,
+        ammunition: 0,
+      },
+    }
 
-    const userList = await User.find();
-
-    // if( userInfo && (userInfo.reports.length > 2) ){
-    //   userInfo.infected = true;
-    //   userInfo.save()
-    //   success = true;
-    // }
-
-    return userList;
+    userList.map( item => {
+      item.points();
+      if(!item.infected){
+        report.users.total ++;
+        report.users.points += item.itemsPoints;
+        report.users.water += item.items.water;
+        report.users.food += item.items.food;
+        report.users.medication += item.items.medication;
+        report.users.ammunition += item.items.ammunition;
+      }else{
+        report.infected.total ++;
+        report.infected.points += item.itemsPoints;
+        report.infected.water += item.items.water;
+        report.infected.food += item.items.food;
+        report.infected.medication += item.items.medication;
+        report.infected.ammunition += item.items.ammunition;
+      }
+    })
+    return report;
   }
-
-   
 
 }

@@ -84,15 +84,47 @@ class AuthService {
             return { success };
         });
     }
-    userReports() {
+    usersReports() {
         return __awaiter(this, void 0, void 0, function* () {
-            const userList = yield user_model_1.User.find();
-            // if( userInfo && (userInfo.reports.length > 2) ){
-            //   userInfo.infected = true;
-            //   userInfo.save()
-            //   success = true;
-            // }
-            return userList;
+            const userList = yield user_model_1.User.find({});
+            let report = {
+                users: {
+                    points: 0,
+                    total: 0,
+                    water: 0,
+                    food: 0,
+                    medication: 0,
+                    ammunition: 0,
+                },
+                infected: {
+                    points: 0,
+                    total: 0,
+                    water: 0,
+                    food: 0,
+                    medication: 0,
+                    ammunition: 0,
+                },
+            };
+            userList.map(item => {
+                item.points();
+                if (!item.infected) {
+                    report.users.total++;
+                    report.users.points += item.itemsPoints;
+                    report.users.water += item.items.water;
+                    report.users.food += item.items.food;
+                    report.users.medication += item.items.medication;
+                    report.users.ammunition += item.items.ammunition;
+                }
+                else {
+                    report.infected.total++;
+                    report.infected.points += item.itemsPoints;
+                    report.infected.water += item.items.water;
+                    report.infected.food += item.items.food;
+                    report.infected.medication += item.items.medication;
+                    report.infected.ammunition += item.items.ammunition;
+                }
+            });
+            return report;
         });
     }
 }
