@@ -1,10 +1,8 @@
 package com.fernando.zssn.controller;
 
-import com.fernando.zssn.ResponseCustom;
-import com.fernando.zssn.persistence.entity.Survivor;
+import com.fernando.zssn.presentation.JsonFormatHandler;
 import com.fernando.zssn.service.SurvivorService;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +17,9 @@ public class SurvivorsController {
     }
 
     @PostMapping
-    public ResponseEntity<Survivor> createSurvivor(@RequestBody SurvivorRequestDto survivorRequest) {
-        Survivor survivor = this.survivorService.createSurvivor(survivorRequest);
-        return new ResponseEntity<>(survivor, HttpStatus.CREATED);
+    public ResponseEntity<JsonFormatHandler> createSurvivor(@RequestBody SurvivorRequestDto survivorRequest) {
+        return this.survivorService.createSurvivor(survivorRequest).getResponse();
+        //return new ResponseEntity<>(survivor, HttpStatus.CREATED);
     }
 
     @GetMapping
