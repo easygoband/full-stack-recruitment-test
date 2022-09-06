@@ -26,4 +26,9 @@ public class SurvivorsController {
     public ResponseEntity<JsonFormatHandler> updateSurvivorLocation(@PathVariable Long id, @RequestBody LocationRequestDto locationRequest) {
         return this.survivorService.updateSurvivorLocation(id, locationRequest).getResponse();
     }
+
+    @PutMapping(value = "/{id}/infected")
+    public ResponseEntity<JsonFormatHandler> flagInfectedSurvivor(@PathVariable Long id) {
+        return this.survivorService.updateInfectedReportsBySurvivor(id).getResponse();
+    }
 }

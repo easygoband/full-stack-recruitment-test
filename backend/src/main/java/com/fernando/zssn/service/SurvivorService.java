@@ -46,4 +46,22 @@ public class SurvivorService {
         repository.save(survivor);
         return this.output.successResponse("Survivor location with id (" + id + ") updated");
     }
+
+    public IViewModel updateInfectedReportsBySurvivor(Long id) {
+        Optional<Survivor> optionalSurvivor = repository.findById(id);
+
+        if (optionalSurvivor.isPresent()) {
+            return this.output.notFoundResponse("Survivor with id (" + id + ") not found");
+        }
+
+        Survivor survivor = optionalSurvivor.get();
+        survivor.addInfectedReport();
+
+        if (survivor.getInfectedReports() >= 3) {
+            survivor.setIsInfected(true);
+        }
+
+        repository.save(survivor);
+        return this.output.successResponse("Survivor with id (" + id + ") was reported as infected");
+    }
 }
