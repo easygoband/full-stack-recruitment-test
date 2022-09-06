@@ -24,4 +24,11 @@ public class Survivor {
     private Integer age;
     private Float latitude;
     private Float longitude;
+    private Integer infectedReports;
+    private Boolean isInfected;
+
+    public void addInfectedReport()
+    {
+        this.setInfectedReports(this.getInfectedReports()+1);
+    }
 }

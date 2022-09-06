@@ -16,6 +16,8 @@ public class SurvivorMapper implements IMapper<SurvivorRequestDto, Survivor> {
         survivor.setAge(in.getAge());
         survivor.setLatitude(in.getLatitude());
         survivor.setLongitude(in.getLongitude());
+        survivor.setInfectedReports(0);
+        survivor.setIsInfected(false);
         return survivor;
     }
 }
