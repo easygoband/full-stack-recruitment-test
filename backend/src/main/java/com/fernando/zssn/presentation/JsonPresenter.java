@@ -2,7 +2,9 @@ package com.fernando.zssn.presentation;
 
 import com.fernando.zssn.presentation.contract.IViewModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JsonPresenter {
     public IViewModel successResponse(String message) {
         return new ViewModel(
