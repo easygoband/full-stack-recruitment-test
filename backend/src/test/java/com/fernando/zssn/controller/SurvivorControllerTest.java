@@ -83,4 +83,26 @@ public class SurvivorControllerTest {
 
         System.out.println(JsonPrettier.make(content));
     }
+
+    @Test
+    public void put_flagSurvivorInfected() throws Exception {
+        ViewModel viewModel = new ViewModel(null,HttpStatus.OK,"Survivor with id (1) was reported as infected");
+
+        JsonFormatHandler output = new JsonFormatHandler(null, viewModel.getHttpStatus().value(),viewModel.getMessage());
+
+        Mockito.when(survivorService.updateInfectedReportsBySurvivor(1L)).thenReturn(viewModel);
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/survivors/1/infected")
+                .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8");
+
+        MvcResult result = mockMvc.perform(builder).andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is(viewModel.getMessage())))
+                .andExpect(jsonPath("$.code", is(HttpStatus.OK.value())))
+                .andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(output))).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        System.out.println(JsonPrettier.make(content));
+    }
 }
