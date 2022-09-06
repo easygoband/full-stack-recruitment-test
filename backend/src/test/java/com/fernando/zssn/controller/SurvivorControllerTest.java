@@ -51,7 +51,7 @@ public class SurvivorControllerTest {
     ObjectMapper mapper;
 
     @Test
-    public void createNewSurvivor() throws Exception {
+    public void post_createNewSurvivor() throws Exception {
         Survivor survivor = new Survivor(1L,"Fernando","Ordaz", 24, (float) -32.1212, (float) 43.214123);
         ViewModel viewModel = new ViewModel(survivor,HttpStatus.CREATED,"");
         JsonFormatHandler output = new JsonFormatHandler(survivor, HttpStatus.CREATED.value(),"");
