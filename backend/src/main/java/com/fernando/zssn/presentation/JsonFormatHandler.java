@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class JsonFormatHandler {
     private Object data;
     private Integer code;
+    private String message;
 }

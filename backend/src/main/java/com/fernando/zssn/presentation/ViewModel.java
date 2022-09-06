@@ -16,11 +16,12 @@ public class ViewModel implements IViewModel {
 
     private Object data;
     private HttpStatus httpStatus;
+    private String message;
 
     @Override
     public ResponseEntity<JsonFormatHandler> getResponse() {
 
-        return new ResponseEntity<>(new JsonFormatHandler(this.getData(), this.getHttpStatus().value()), this.getHttpStatus());
+        return new ResponseEntity<>(new JsonFormatHandler(this.getData(), this.getHttpStatus().value(), this.message), this.getHttpStatus());
     }
 
 }

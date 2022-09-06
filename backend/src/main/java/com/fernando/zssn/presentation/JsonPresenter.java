@@ -4,19 +4,28 @@ import com.fernando.zssn.presentation.contract.IViewModel;
 import org.springframework.http.HttpStatus;
 
 public class JsonPresenter {
-    public IViewModel successResponse() {
-        return new ViewModel();
+    public IViewModel successResponse(String message) {
+        return new ViewModel(
+                null,
+                HttpStatus.OK,
+                message
+        );
     }
 
     public IViewModel createdResponse(Object data) {
         return new ViewModel(
                 data,
-                HttpStatus.CREATED
+                HttpStatus.CREATED,
+                ""
         );
     }
 
-    public IViewModel notFoundResponse() {
-        return new ViewModel();
+    public IViewModel notFoundResponse(String message) {
+        return new ViewModel(
+                null,
+                HttpStatus.NOT_FOUND,
+                message
+        );
     }
 
     public IViewModel serverErrorResponse() {
