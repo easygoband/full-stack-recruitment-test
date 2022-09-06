@@ -9,6 +9,7 @@ import com.fernando.zssn.persistence.entity.Survivor;
 import com.fernando.zssn.presentation.JsonFormatHandler;
 import com.fernando.zssn.presentation.ViewModel;
 import com.fernando.zssn.service.SurvivorService;
+import com.fernando.zssn.service.dto.LocationRequestDto;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,8 +53,8 @@ public class SurvivorControllerTest {
     @Test
     public void createNewSurvivor() throws Exception {
         Survivor survivor = new Survivor(1L,"Fernando","Ordaz", 24, (float) -32.1212, (float) 43.214123);
-        ViewModel viewModel = new ViewModel(survivor,HttpStatus.CREATED);
-        JsonFormatHandler output = new JsonFormatHandler(survivor, HttpStatus.CREATED.value());
+        ViewModel viewModel = new ViewModel(survivor,HttpStatus.CREATED,"");
+        JsonFormatHandler output = new JsonFormatHandler(survivor, HttpStatus.CREATED.value(),"");
         Mockito.when(survivorService.createSurvivor(Mockito.any(SurvivorRequestDto.class))).thenReturn(viewModel);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/survivors")
@@ -63,6 +64,28 @@ public class SurvivorControllerTest {
         MvcResult result = mockMvc.perform(builder).andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.id", is(1)))
                 .andExpect(jsonPath("$.code", is(HttpStatus.CREATED.value())))
+                .andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(output))).andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        System.out.println(JsonPrettier.make(content));
+    }
+
+    @Test
+    public void put_updateSurvivorLocation() throws Exception {
+        ViewModel viewModel = new ViewModel(null,HttpStatus.OK,"Survivor location with id (1) updated");
+        LocationRequestDto locationRequest = new LocationRequestDto(-23.23423F, 4.23423F);
+        JsonFormatHandler output = new JsonFormatHandler(null, viewModel.getHttpStatus().value(),viewModel.getMessage());
+
+        Mockito.when(survivorService.updateSurvivorLocation(1L,locationRequest)).thenReturn(viewModel);
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/survivors/1/location")
+                .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8").content(this.mapper.writeValueAsBytes(locationRequest));
+
+        MvcResult result = mockMvc.perform(builder).andExpect(status().isOk())
+                .andExpect(jsonPath("$.message", is(viewModel.getMessage())))
+                .andExpect(jsonPath("$.code", is(HttpStatus.OK.value())))
                 .andExpect(MockMvcResultMatchers.content().string(this.mapper.writeValueAsString(output))).andReturn();
 
         String content = result.getResponse().getContentAsString();
