@@ -7,9 +7,7 @@ import com.fernando.zssn.presentation.JsonPresenter;
 import com.fernando.zssn.presentation.contract.IViewModel;
 import com.fernando.zssn.service.dto.LocationRequestDto;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 

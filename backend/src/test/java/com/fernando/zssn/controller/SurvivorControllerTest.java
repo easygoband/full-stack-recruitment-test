@@ -3,7 +3,6 @@ package com.fernando.zssn.controller;
 import static org.hamcrest.Matchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fernando.zssn.controller.SurvivorsController;
 import com.fernando.zssn.helpers.JsonPrettier;
 import com.fernando.zssn.persistence.entity.Survivor;
 import com.fernando.zssn.presentation.JsonFormatHandler;
@@ -11,10 +10,6 @@ import com.fernando.zssn.presentation.ViewModel;
 import com.fernando.zssn.service.SurvivorService;
 import com.fernando.zssn.service.dto.LocationRequestDto;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -23,17 +18,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import springfox.documentation.spring.web.json.Json;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
