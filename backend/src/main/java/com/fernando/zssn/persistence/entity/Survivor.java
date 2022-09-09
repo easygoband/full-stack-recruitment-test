@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +21,8 @@ public class Survivor {
     private Integer age;
     private Float latitude;
     private Float longitude;
+    @OneToMany(mappedBy = "survivor", cascade = CascadeType.ALL)
+    private List<Item> items;
     private Integer infectedReports;
     private Boolean isInfected;
 
