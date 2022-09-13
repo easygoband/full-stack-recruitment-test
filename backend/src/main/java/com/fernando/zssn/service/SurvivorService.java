@@ -11,10 +11,7 @@ import com.fernando.zssn.presentation.contract.IViewModel;
 import com.fernando.zssn.service.criteria.type.OrderType;
 import com.fernando.zssn.service.dto.LocationRequestDto;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
-import com.fernando.zssn.service.specification.SurvivorSpec;
 import com.fernando.zssn.service.specification.SurvivorSpecificationBuilder;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 

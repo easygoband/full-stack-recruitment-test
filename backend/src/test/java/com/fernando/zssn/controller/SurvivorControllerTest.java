@@ -44,8 +44,8 @@ public class SurvivorControllerTest {
     @Test
     public void post_createNewSurvivor() throws Exception {
         Survivor survivor = new Survivor(1L,"Fernando","Ordaz", 24, (float) -32.1212, (float) 43.214123, null, 0, false);
-        ViewModel viewModel = new ViewModel(survivor,HttpStatus.CREATED,"");
-        JsonFormatHandler output = new JsonFormatHandler(survivor, HttpStatus.CREATED.value(),"");
+        ViewModel viewModel = new ViewModel(survivor,HttpStatus.CREATED,"",null);
+        JsonFormatHandler output = new JsonFormatHandler(survivor, HttpStatus.CREATED.value(),"",null);
         Mockito.when(survivorService.createSurvivor(Mockito.any(SurvivorRequestDto.class))).thenReturn(viewModel);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/survivors")
@@ -64,9 +64,9 @@ public class SurvivorControllerTest {
 
     @Test
     public void put_updateSurvivorLocation() throws Exception {
-        ViewModel viewModel = new ViewModel(null,HttpStatus.OK,"Survivor location with id (1) updated");
+        ViewModel viewModel = new ViewModel(null,HttpStatus.OK,"Survivor location with id (1) updated",null);
         LocationRequestDto locationRequest = new LocationRequestDto(-23.23423F, 4.23423F);
-        JsonFormatHandler output = new JsonFormatHandler(null, viewModel.getHttpStatus().value(),viewModel.getMessage());
+        JsonFormatHandler output = new JsonFormatHandler(null, viewModel.getHttpStatus().value(),viewModel.getMessage(),null);
 
         Mockito.when(survivorService.updateSurvivorLocation(1L,locationRequest)).thenReturn(viewModel);
 
@@ -86,9 +86,9 @@ public class SurvivorControllerTest {
 
     @Test
     public void put_flagSurvivorInfected() throws Exception {
-        ViewModel viewModel = new ViewModel(null,HttpStatus.OK,"Survivor with id (1) was reported as infected");
+        ViewModel viewModel = new ViewModel(null,HttpStatus.OK,"Survivor with id (1) was reported as infected",null);
 
-        JsonFormatHandler output = new JsonFormatHandler(null, viewModel.getHttpStatus().value(),viewModel.getMessage());
+        JsonFormatHandler output = new JsonFormatHandler(null, viewModel.getHttpStatus().value(),viewModel.getMessage(),null);
 
         Mockito.when(survivorService.updateInfectedReportsBySurvivor(1L)).thenReturn(viewModel);
 
