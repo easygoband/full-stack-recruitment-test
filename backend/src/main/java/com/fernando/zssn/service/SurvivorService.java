@@ -8,7 +8,6 @@ import com.fernando.zssn.persistence.repository.ItemRepository;
 import com.fernando.zssn.persistence.repository.SurvivorRepository;
 import com.fernando.zssn.presentation.JsonPresenter;
 import com.fernando.zssn.presentation.contract.IViewModel;
-import com.fernando.zssn.service.criteria.type.OrderType;
 import com.fernando.zssn.service.dto.LocationRequestDto;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
 import com.fernando.zssn.service.specification.SurvivorSpecificationBuilder;

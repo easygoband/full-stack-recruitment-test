@@ -2,8 +2,6 @@ package com.fernando.zssn.controller;
 
 import com.fernando.zssn.presentation.JsonFormatHandler;
 import com.fernando.zssn.service.SurvivorService;
-import com.fernando.zssn.service.criteria.Page;
-import com.fernando.zssn.service.criteria.type.OrderType;
 import com.fernando.zssn.service.dto.LocationRequestDto;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
 import org.springframework.http.ResponseEntity;
