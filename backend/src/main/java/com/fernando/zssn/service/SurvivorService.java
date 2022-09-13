@@ -8,8 +8,14 @@ import com.fernando.zssn.persistence.repository.ItemRepository;
 import com.fernando.zssn.persistence.repository.SurvivorRepository;
 import com.fernando.zssn.presentation.JsonPresenter;
 import com.fernando.zssn.presentation.contract.IViewModel;
+import com.fernando.zssn.service.criteria.type.OrderType;
 import com.fernando.zssn.service.dto.LocationRequestDto;
 import com.fernando.zssn.service.dto.SurvivorRequestDto;
+import com.fernando.zssn.service.specification.SurvivorSpec;
+import com.fernando.zssn.service.specification.SurvivorSpecificationBuilder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,6 +69,17 @@ public class SurvivorService {
         this.itemRepository.saveAll(items);
 
         return this.output.createdResponse(survivor);
+    }
+
+    public IViewModel fetchAllSurvivors(String search) {
+        SurvivorSpecificationBuilder searchCriteria = new SurvivorSpecificationBuilder();
+        Specification<Survivor> specification = searchCriteria.build(search);
+
+        List<Survivor> survivors = this.repository.findAll(specification);
+        long survivorsTotal = this.repository.count(specification);
+
+        System.out.println(survivorsTotal);
+        return this.output.collectionResponse(survivors,survivorsTotal);
     }
 
     public IViewModel updateSurvivorLocation(Long id, LocationRequestDto locationRequest) {

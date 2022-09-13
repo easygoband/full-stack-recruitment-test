@@ -10,7 +10,17 @@ public class JsonPresenter {
         return new ViewModel(
                 null,
                 HttpStatus.OK,
-                message
+                message,
+                null
+        );
+    }
+
+    public IViewModel collectionResponse(Object data, Long totalResults) {
+        return new ViewModel(
+                data,
+                HttpStatus.OK,
+                "",
+                totalResults
         );
     }
 
@@ -18,7 +28,8 @@ public class JsonPresenter {
         return new ViewModel(
                 data,
                 HttpStatus.CREATED,
-                ""
+                "",
+                null
         );
     }
 
@@ -26,7 +37,8 @@ public class JsonPresenter {
         return new ViewModel(
                 null,
                 HttpStatus.NOT_FOUND,
-                message
+                message,
+                null
         );
     }
 
