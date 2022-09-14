@@ -43,7 +43,7 @@ public class SurvivorControllerTest {
 
     @Test
     public void post_createNewSurvivor() throws Exception {
-        Survivor survivor = new Survivor(1L,"Fernando","Ordaz", 24, (float) -32.1212, (float) 43.214123, null, 0, false);
+        Survivor survivor = new Survivor(1L,"Fernando","Ordaz", 24, (float) -32.1212, (float) 43.214123, 0, null, 0, false);
         ViewModel viewModel = new ViewModel(survivor,HttpStatus.CREATED,"",null);
         JsonFormatHandler output = new JsonFormatHandler(survivor, HttpStatus.CREATED.value(),"",null);
         Mockito.when(survivorService.createSurvivor(Mockito.any(SurvivorRequestDto.class))).thenReturn(viewModel);

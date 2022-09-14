@@ -21,6 +21,7 @@ public class Survivor {
     private Integer age;
     private Float latitude;
     private Float longitude;
+    private Integer points;
     @OneToMany(mappedBy = "survivor", cascade = CascadeType.ALL)
     private List<Item> items;
     private Integer infectedReports;

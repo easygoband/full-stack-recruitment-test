@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class SurvivorService {
@@ -47,7 +48,6 @@ public class SurvivorService {
     public IViewModel createSurvivor(SurvivorRequestDto survivorRequest) {
         Survivor survivor = mapper.map(survivorRequest);
 
-        survivor = this.repository.save(survivor);
 
         List<Item> items = survivorRequest
                 .getItems()
@@ -56,10 +56,21 @@ public class SurvivorService {
                 .map(itemMapper::map)
                 .toList();
 
+        AtomicReference<Integer> points = new AtomicReference<>(0);
+
+        items.forEach(item -> {
+            item.setPoints(item.calculatePoints());
+            points.updateAndGet(v -> v + item.getPoints());
+        });
+
+        survivor.setPoints(points.get());
+
+        survivor = this.repository.save(survivor);
+
         Survivor finalSurvivor = survivor;
+
         items.forEach(item -> {
             item.setSurvivor(finalSurvivor);
-            item.setPoints(item.calculatePoints());
         });
 
         this.itemRepository.saveAll(items);
