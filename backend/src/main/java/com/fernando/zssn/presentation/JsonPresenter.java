@@ -15,6 +15,15 @@ public class JsonPresenter {
         );
     }
 
+    public IViewModel fetchResourceResponse(Object data) {
+        return new ViewModel(
+            data,
+            HttpStatus.OK,
+            "",
+            null
+        );
+    }
+
     public IViewModel collectionResponse(Object data, Long totalResults) {
         return new ViewModel(
                 data,

@@ -23,9 +23,13 @@ public class SurvivorsController {
     }
 
     @GetMapping
-    @ResponseBody
     public ResponseEntity<JsonFormatHandler> fetchSurvivors(@RequestParam(value = "search", required = false) String search) {
         return this.survivorService.fetchAllSurvivors(search).getResponse();
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<JsonFormatHandler> fetchSingleSurvivor(@PathVariable Long id) {
+        return this.survivorService.fetchSingleSurvivor(id).getResponse();
     }
 
     @PutMapping(value = "/{id}/location")

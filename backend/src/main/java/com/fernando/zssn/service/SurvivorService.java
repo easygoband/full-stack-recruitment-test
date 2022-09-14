@@ -78,6 +78,17 @@ public class SurvivorService {
         return this.output.createdResponse(survivor);
     }
 
+    public IViewModel fetchSingleSurvivor(Long id) {
+        Optional<Survivor> optionalSurvivor = repository.findById(id);
+
+        if (optionalSurvivor.isEmpty()) {
+            return  this.output.notFoundResponse("Survivor with id (" + id + ") not found");
+        }
+
+        Survivor survivor = optionalSurvivor.get();
+        return this.output.fetchResourceResponse(survivor);
+    }
+
     public IViewModel fetchAllSurvivors(String search) {
         SurvivorSpecificationBuilder searchCriteria = new SurvivorSpecificationBuilder();
         Specification<Survivor> specification = searchCriteria.build(search);

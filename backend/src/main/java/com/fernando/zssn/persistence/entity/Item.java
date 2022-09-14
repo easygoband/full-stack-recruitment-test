@@ -1,5 +1,6 @@
 package com.fernando.zssn.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fernando.zssn.persistence.entity.type.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,11 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "survivor_id", referencedColumnName = "id", insertable = true)
     private Survivor survivor;
+
+    @JsonBackReference
+    public Survivor getSurvivor(){
+        return survivor;
+    }
 
     public Integer calculatePoints()
     {
