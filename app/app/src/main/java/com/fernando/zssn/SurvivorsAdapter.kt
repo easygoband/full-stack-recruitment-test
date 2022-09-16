@@ -1,5 +1,6 @@
 package com.fernando.zssn
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,21 +23,33 @@ class SurvivorsAdapter(
         return ViewHolder(binding)
     }
 
+    fun filterList(filterList: List<Survivor>) {
+        survivors = filterList
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val survivor = survivors[position]
-        holder.bind(survivor)
+        holder.bind(survivor,position.toString())
         holder.itemView.setOnClickListener{ survivorCLickListener(survivor) }
     }
 
     override fun getItemCount() = survivors.size
 
     class ViewHolder(private val binding: RowSurvivorItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(survivor: Survivor) {
-            binding.txt.text = survivor.name
+        fun bind(survivor: Survivor, position: String) {
             binding.subTxt.text = survivor.surname
+            binding.txt.text = survivor.name
+
+            val url = when(position) {
+                "0" -> "https://ui-avatars.com/api/?name=1&background=random"
+                "1" -> "https://ui-avatars.com/api/?name=2&background=random"
+                "2" -> "https://ui-avatars.com/api/?name=3&background=random"
+                else -> "https://ui-avatars.com/api/?name="+survivor.name+"+"+survivor.surname+"&background=random"
+            }
             Glide
                 .with(binding.root.context)
-                .load("https://ui-avatars.com/api/?name=Luis+Fernando&background=random")
+                .load(url)
                 .circleCrop()
                 .into(binding.img)
 
