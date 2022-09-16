@@ -2,8 +2,8 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql_app_1
--- Generation Time: Sep 14, 2022 at 05:39 PM
+-- Host: zssn_db
+-- Generation Time: Sep 16, 2022 at 08:30 PM
 -- Server version: 5.7.37
 -- PHP Version: 7.4.27
 
@@ -38,7 +38,7 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(1);
+(4);
 
 -- --------------------------------------------------------
 
@@ -534,7 +534,7 @@ INSERT INTO `survivors` (`id`, `age`, `infected_reports`, `is_infected`, `latitu
 (49, 33, 1, b'0', 59.5085, 18.0552, 'Adelice', 286, 'Dutnall'),
 (50, 22, 0, b'0', 14.6876, 120.978, 'Tab', 342, 'Laroze'),
 (51, 47, 3, b'1', -6.94722, 107.311, 'Terra', 455, 'Towner'),
-(52, 41, 3, b'1', 48.4666, 124.883, 'Marietta', 877, 'Porcher'),
+(52, 41, 5, b'1', 48.4666, 124.883, 'Marietta', 877, 'Porcher'),
 (53, 21, 3, b'1', -25.8775, 28.3131, 'Chere', 320, 'Duguid'),
 (54, 44, 0, b'0', 39.2933, 117.322, 'Barbie', 728, 'Bownd'),
 (55, 49, 1, b'0', 22.7694, 113.622, 'Danni', 490, 'Smythin'),
@@ -555,7 +555,7 @@ INSERT INTO `survivors` (`id`, `age`, `infected_reports`, `is_infected`, `latitu
 (70, 32, 0, b'0', 30.5319, 117.115, 'Devina', 394, 'Daouse'),
 (71, 38, 2, b'0', 48.3729, -4.21276, 'Errol', 625, 'Packe'),
 (72, 24, 1, b'0', 59.2331, 163.068, 'Alwyn', 558, 'Kayne'),
-(73, 20, 2, b'0', -11.8765, -47.6849, 'Ileane', 910, 'Murrison'),
+(73, 20, 2, b'0', -2.8765, -5.423, 'Ileane', 910, 'Murrison'),
 (74, 23, 1, b'0', 24.3473, 102.527, 'Berty', 651, 'Pritchitt'),
 (75, 20, 1, b'0', 64.0662, 27.5847, 'Nessi', 490, 'Jacobsen'),
 (76, 25, 1, b'0', -38.9787, -67.8127, 'Aloin', 814, 'Ledster'),
@@ -609,7 +609,13 @@ ALTER TABLE `survivors`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=401;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=409;
+
+--
+-- AUTO_INCREMENT for table `survivors`
+--
+ALTER TABLE `survivors`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
