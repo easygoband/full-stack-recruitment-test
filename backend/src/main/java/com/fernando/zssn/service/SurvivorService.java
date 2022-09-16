@@ -96,7 +96,6 @@ public class SurvivorService {
         List<Survivor> survivors = this.repository.findAll(specification);
         long survivorsTotal = this.repository.count(specification);
 
-        System.out.println(survivorsTotal);
         return this.output.collectionResponse(survivors,survivorsTotal);
     }
 
@@ -118,7 +117,7 @@ public class SurvivorService {
     public IViewModel updateInfectedReportsBySurvivor(Long id) {
         Optional<Survivor> optionalSurvivor = repository.findById(id);
 
-        if (optionalSurvivor.isPresent()) {
+        if (!optionalSurvivor.isPresent()) {
             return this.output.notFoundResponse("Survivor with id (" + id + ") not found");
         }
 

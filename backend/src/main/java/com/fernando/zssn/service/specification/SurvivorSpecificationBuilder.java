@@ -22,8 +22,8 @@ public class SurvivorSpecificationBuilder {
                 switch (matcher.group(2)) {
                     case ":" -> predicate.add(criteriaBuilder.equal(root.get(matcher.group(1)), matcher.group(3)));
                     case "~" -> predicate.add(criteriaBuilder.like(root.get(matcher.group(1)), "%" + matcher.group(3) + "%"));
-                    case ">" -> predicate.add(criteriaBuilder.greaterThan(root.get(matcher.group(1)), "%" + matcher.group(3) + "%"));
-                    case "<" -> predicate.add(criteriaBuilder.lessThan(root.get(matcher.group(1)), "%" + matcher.group(3) + "%"));
+                    case ">" -> predicate.add(criteriaBuilder.greaterThan(root.get(matcher.group(1)), matcher.group(3)));
+                    case "<" -> predicate.add(criteriaBuilder.lessThan(root.get(matcher.group(1)), matcher.group(3)));
                 }
             }
 
