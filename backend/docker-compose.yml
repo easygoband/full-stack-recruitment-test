@@ -6,7 +6,7 @@ services:
       context: ./
       dockerfile: mysql
     ports:
-      - "3000:3306"
+      - "3001:3306"
     user: "${UID}"
     restart: always
     environment:
@@ -21,7 +21,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 9000:80
+      - 9001:80
     environment:
       - PMA_HOST="mysql_app_1"
       - PMA_ARBITRARY=1
