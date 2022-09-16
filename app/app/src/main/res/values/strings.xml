@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">zssnapp</string>
+    <string name="search">Search</string>
+    <string name="content_description_search">Content</string>
 </resources>
