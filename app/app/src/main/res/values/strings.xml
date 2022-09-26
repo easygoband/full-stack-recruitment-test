@@ -2,4 +2,26 @@
     <string name="app_name">zssnapp</string>
     <string name="search">Search</string>
     <string name="content_description_search">Content</string>
+    <string name="location">Ubicación</string>
+    <string name="update_location">Actualizar ubicación</string>
+    <string name="water">Agua</string>
+    <string name="food">Comida</string>
+    <string name="medication">Medicamentos</string>
+    <string name="ammunition">Munición</string>
+    <string name="survivor_report_title">Reporte de superviviente</string>
+    <string name="survivor_report">REPORTAR SUPERVIVIENTE</string>
+    <string name="infected_percent_title">Porcentaje de infectados</string>
+    <string name="infected">Infectados</string>
+    <string name="not_infected">No infectados</string>
+    <string name="average_items_per_type">Promedio de items por tipo</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="new_survivor">Nuevo superviviente</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apellido</string>
+    <string name="age">Edad</string>
+    <string name="inventory">Inventario</string>
+    <string name="quantity">Cantidad</string>
 </resources>

@@ -23,7 +23,7 @@
             android:layout_margin="4dp"
             android:gravity="center"
             android:padding="4dp"
-            android:text="Porcentaje de infectados"
+            android:text="@string/infected_percent_title"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -33,13 +33,11 @@
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pieChartInfected"
             android:gravity="center"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
@@ -51,26 +49,26 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_ircle"
-                android:drawableTint="@color/orange"
                 android:gravity="center"
                 android:padding="4dp"
-                android:text="Infectados"
+                android:text="@string/infected"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:drawableLeftCompat="@drawable/ic_ircle"
+                app:drawableTint="@color/orange" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/ic_ircle"
-                android:drawableTint="@color/dark"
                 android:gravity="center"
                 android:padding="4dp"
-                android:text="No infectados"
+                android:text="@string/not_infected"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:drawableLeftCompat="@drawable/ic_ircle"
+                app:drawableTint="@color/dark" />
         </LinearLayout>
 
     </LinearLayout>

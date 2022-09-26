@@ -32,7 +32,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="Survivor name"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -44,7 +43,6 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
-                    android:text="Puntaje inventario: 944"
                     android:textColor="#5C5A5A"
                     android:textSize="13sp"
                     android:textStyle="normal" />
@@ -67,7 +65,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="24 años"
                         android:textColor="#636262"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -84,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="3 reportes"
                         android:textColor="#636262"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -101,7 +97,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="No infectado"
                         android:textColor="#636262"
                         android:textSize="14sp"
                         android:textStyle="bold" />

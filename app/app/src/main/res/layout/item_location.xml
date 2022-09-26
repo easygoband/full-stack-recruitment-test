@@ -34,7 +34,7 @@
                     android:layout_height="35dp"/>
 
                 <TextView
-                    android:text="Ubicación"
+                    android:text="@string/location"
                     android:textSize="16sp"
                     android:layout_margin="5dp"
                     android:textStyle="bold|normal"
@@ -59,7 +59,7 @@
                     android:layout_height="35dp"/>
 
                 <TextView
-                    android:text="Actualizar ubicación"
+                    android:text="@string/update_location"
                     android:textSize="16sp"
                     android:layout_margin="5dp"
                     android:textStyle="bold|normal"
@@ -82,7 +82,6 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/survivorLocation"
-                    android:text="12.43534, -32.34534"
                     android:layout_gravity="center"
                     android:textSize="17sp"
                     android:textColor="@color/black"

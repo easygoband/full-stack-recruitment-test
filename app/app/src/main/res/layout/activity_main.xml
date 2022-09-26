@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".ui.view.MainActivity" >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
@@ -15,6 +15,16 @@
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/row_survivor_item" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -37,4 +47,6 @@
         app:layout_anchor="@id/bottomAppBar"
         android:backgroundTint="#fbd400"
         android:contentDescription="Add" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

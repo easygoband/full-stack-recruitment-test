@@ -22,7 +22,7 @@
             android:layout_margin="4dp"
             android:gravity="center"
             android:padding="4dp"
-            android:text="Promedio de items por tipo"
+            android:text="@string/average_items_per_type"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />

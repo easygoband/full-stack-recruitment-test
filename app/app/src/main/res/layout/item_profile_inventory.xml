@@ -37,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Comida"
+                        android:text="@string/food"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -48,7 +48,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="Puntaje: 944"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
@@ -59,7 +58,6 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="Número de items: 12"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
@@ -110,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Agua"
+                        android:text="@string/water"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -121,7 +119,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="Puntaje: 944"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
@@ -132,7 +129,6 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="Número de items: 12"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
@@ -183,7 +179,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Medicamento"
+                        android:text="@string/medication"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -194,7 +190,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="Puntaje: 944"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
@@ -205,7 +200,6 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="Número de items: 12"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
@@ -256,7 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Munición"
+                        android:text="@string/ammunition"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -267,7 +261,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="Puntaje: 944"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
@@ -278,7 +271,6 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="Número de items: 12"
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />

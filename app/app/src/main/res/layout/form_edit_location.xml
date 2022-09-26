@@ -34,7 +34,7 @@
                     android:layout_height="35dp"/>
 
                 <TextView
-                    android:text="Ubicación"
+                    android:text="@string/location"
                     android:textSize="16sp"
                     android:layout_margin="5dp"
                     android:textStyle="bold|normal"
@@ -65,7 +65,7 @@
                     app:helperTextTextColor="@android:color/holo_red_dark"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
-                    android:hint="Latitude"
+                    android:hint="@string/latitude"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +83,7 @@
                     app:startIconContentDescription="Longitude"
                     app:helperTextTextColor="@android:color/holo_red_dark"
                     android:layout_marginBottom="30dp"
-                    android:hint="Longitude"
+                    android:hint="@string/longitude"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +111,7 @@
                             android:layout_width="wrap_content"
                             android:layout_gravity="start"
                             android:layout_height="wrap_content"
-                            android:text="Cancelar"
+                            android:text="@string/cancel"
                             style="?attr/materialButtonOutlinedStyle"
                             />
 
@@ -129,7 +129,7 @@
                             android:layout_gravity="end"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Guardar"
+                            android:text="@string/save"
                             />
 
                     </LinearLayout>

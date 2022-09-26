@@ -37,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Comida"
+                        android:text="@string/food"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -48,7 +48,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="4.6"
                         android:textColor="#5C5A5A"
                         android:textSize="20sp"
                         android:textStyle="normal" />
@@ -99,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Agua"
+                        android:text="@string/water"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -110,7 +109,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="8.2"
                         android:textColor="#5C5A5A"
                         android:textSize="20sp"
                         android:textStyle="normal" />
@@ -161,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Medicamento"
+                        android:text="@string/medication"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -172,7 +170,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="7.5"
                         android:textColor="#5C5A5A"
                         android:textSize="20sp"
                         android:textStyle="normal" />
@@ -223,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:gravity="center"
-                        android:text="Munición"
+                        android:text="@string/ammunition"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -234,7 +231,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:gravity="center"
-                        android:text="6.2"
                         android:textColor="#5C5A5A"
                         android:textSize="20sp"
                         android:textStyle="normal" />
