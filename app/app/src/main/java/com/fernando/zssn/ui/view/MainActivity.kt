@@ -1,25 +1,24 @@
-package com.fernando.zssn
+package com.fernando.zssn.ui.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
+import com.fernando.zssn.R
 import com.fernando.zssn.databinding.ActivityMainBinding
-import com.fernando.zssn.model.Survivor
-import com.fernando.zssn.model.SurvivorClient
-import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.ArrayList
+import com.fernando.zssn.data.model.Survivor
+import com.fernando.zssn.ui.view.adapter.SurvivorsAdapter
+import com.fernando.zssn.ui.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var survivorsList: List<Survivor>
     lateinit var survivorsAdapter: SurvivorsAdapter
+
+    private val mainViewModel: MainViewModel by viewModels()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,14 +48,20 @@ class MainActivity : AppCompatActivity() {
             navigateToNewSurvivor()
         }
 
-        lifecycleScope.launch{
-            val survivors = SurvivorClient.service.listAllSurvivors("infectedReports<3")
+        mainViewModel.onCreate()
 
-            survivorsList = survivors.data.sortedByDescending { it.points }
+        mainViewModel.survivors.observe(this, Observer { survivors ->
+            survivorsList = survivors.sortedByDescending { survivor ->
+                survivor.points
+            }
 
             survivorsAdapter.survivors = survivorsList
             survivorsAdapter.notifyDataSetChanged()
-        }
+        })
+
+        mainViewModel.isLoading.observe(this, Observer {
+            binding.loading.isVisible = it
+        })
 
     }
 

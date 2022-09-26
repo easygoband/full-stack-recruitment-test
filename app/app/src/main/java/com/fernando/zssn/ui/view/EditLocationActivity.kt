@@ -1,4 +1,4 @@
-package com.fernando.zssn
+package com.fernando.zssn.ui.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,13 +7,13 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.fernando.zssn.databinding.ActivityEditLocationBinding
-import com.fernando.zssn.model.LocationRequest
-import com.fernando.zssn.model.Survivor
-import com.fernando.zssn.model.SurvivorClient
+import com.fernando.zssn.data.network.request.LocationRequest
+import com.fernando.zssn.data.model.Survivor
+import com.fernando.zssn.ui.viewmodel.EditLocationViewModel
 import kotlinx.android.synthetic.main.form_edit_location.view.*
-import kotlinx.coroutines.launch
 
 class EditLocationActivity : AppCompatActivity() {
 
@@ -21,12 +21,16 @@ class EditLocationActivity : AppCompatActivity() {
         const val EXTRA_SURVIVOR = "EditLocationActivity:survivor"
     }
 
+    private lateinit var editLocationViewModel: EditLocationViewModel
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityEditLocationBinding.inflate(layoutInflater)
 
         val survivor = intent.getParcelableExtra<Survivor>(EXTRA_SURVIVOR)
+
+        editLocationViewModel = ViewModelProvider(this).get(EditLocationViewModel::class.java)
 
         binding.backButton.setOnClickListener{
             if (survivor != null) {
@@ -53,19 +57,21 @@ class EditLocationActivity : AppCompatActivity() {
                     .setCancelable(false)
                     .setPositiveButton("Sí, quiero continuar") { dialog, id ->
                         if (survivor != null) {
-                            lifecycleScope.launch{
-                                val locationRequest = LocationRequest()
-                                locationRequest.latitude = binding.formEditLocation.latitudeInput.text.toString()
-                                locationRequest.longitude = binding.formEditLocation.longitudeInput.text.toString()
 
-                                val survivorResponse = SurvivorClient.service.updateSurvivorLocation(survivor.id, locationRequest)
+                            val locationRequest = LocationRequest()
+                            locationRequest.latitude = binding.formEditLocation.latitudeInput.text.toString()
+                            locationRequest.longitude = binding.formEditLocation.longitudeInput.text.toString()
 
-                                if (survivorResponse.code == 200){
+                            editLocationViewModel.updateLocation(locationRequest,survivor.id)
+
+                            editLocationViewModel.locationResponse.observe(this, Observer { updateLocationResponse ->
+                                if (updateLocationResponse.code == 200){
                                     navigateToProfile(survivor)
                                 }else{
                                     Toast.makeText(this@EditLocationActivity, "Ocurrió un error inesperado", Toast.LENGTH_SHORT).show()
                                 }
-                            }
+                            })
+
                         }
                     }
                     .setNegativeButton("No, cancelar") { dialog, id ->
@@ -78,8 +84,9 @@ class EditLocationActivity : AppCompatActivity() {
         }
 
         if (survivor != null) {
-            lifecycleScope.launch {
-                val survivorDb = SurvivorClient.service.fetchSingleSurvivor(survivor.id)
+            editLocationViewModel.getSurvivor(survivor.id)
+
+            editLocationViewModel.survivorResponse.observe(this, Observer { survivorDb ->
                 binding.survivorId.text = "Superviviente # "+survivorDb.data.id
                 binding.survivorInformation.survivorName.text = survivorDb.data.name+" "+survivorDb.data.surname
                 binding.survivorInformation.survivorAge.text = survivorDb.data.age.toString()+" Años"
@@ -91,7 +98,8 @@ class EditLocationActivity : AppCompatActivity() {
                 }
                 binding.formEditLocation.latitudeInput.setText(survivorDb.data.latitude.toString())
                 binding.formEditLocation.longitudeInput.setText(survivorDb.data.longitude.toString())
-            }
+            })
+
         }
 
         setContentView(binding.root)
@@ -128,10 +136,10 @@ class EditLocationActivity : AppCompatActivity() {
 
     private fun validEmptyInput(string: String): String?
     {
-        if (TextUtils.isEmpty(string)) {
-            return "Este campo es requerido"
+        return if (TextUtils.isEmpty(string)) {
+            "Este campo es requerido"
         }else{
-            return null
+            null
         }
     }
 }

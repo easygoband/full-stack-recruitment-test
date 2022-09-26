@@ -1,4 +1,4 @@
-package com.fernando.zssn
+package com.fernando.zssn.ui.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,13 +7,10 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
-import com.fernando.zssn.databinding.ActivityEditLocationBinding
 import com.fernando.zssn.databinding.ActivityNewSurvivorBinding
-import com.fernando.zssn.model.ItemRequest
-import com.fernando.zssn.model.LocationRequest
-import com.fernando.zssn.model.SurvivorClient
-import com.fernando.zssn.model.SurvivorRequest
-import kotlinx.android.synthetic.main.form_edit_location.view.*
+import com.fernando.zssn.data.network.request.ItemRequest
+import com.fernando.zssn.core.ApiClient
+import com.fernando.zssn.data.network.request.SurvivorRequest
 import kotlinx.android.synthetic.main.form_new_survivor.view.*
 import kotlinx.coroutines.launch
 
@@ -89,7 +86,7 @@ class NewSurvivorActivity : AppCompatActivity() {
                             survivorRequest.longitude = binding.formNewSurvivor.longitudeInputSurvivor.text.toString()
                             survivorRequest.items = itemRequestList
 
-                            val survivorResponse = SurvivorClient.service.createSurvivor(survivorRequest)
+                            val survivorResponse = ApiClient.survivorService.createSurvivor(survivorRequest)
 
                             if (survivorResponse.code == 201){
                                 navigateToHome()

@@ -1,18 +1,17 @@
-package com.fernando.zssn
+package com.fernando.zssn.ui.view
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.fernando.zssn.R
 import com.fernando.zssn.databinding.ActivityChartsBinding
-import com.fernando.zssn.model.ResponseItemList
-import com.fernando.zssn.model.ResponseList
-import com.fernando.zssn.model.Survivor
-import com.fernando.zssn.model.SurvivorClient
+import com.fernando.zssn.data.network.response.ResponseItemList
+import com.fernando.zssn.data.network.response.ResponseList
+import com.fernando.zssn.ui.viewmodel.ChartsViewModel
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -22,9 +21,6 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.MPPointF
 import kotlinx.android.synthetic.main.card_average_items.view.*
 import kotlinx.android.synthetic.main.card_percent_infected.view.*
-import kotlinx.coroutines.launch
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class ChartsActivity : AppCompatActivity() {
 
@@ -42,10 +38,14 @@ class ChartsActivity : AppCompatActivity() {
 
     private lateinit var itemsResponse: ResponseItemList
 
+    private lateinit var chartsViewModel: ChartsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityChartsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        chartsViewModel = ViewModelProvider(this).get(ChartsViewModel::class.java)
 
         pieChart = binding.dashboard.pieChartInfected
         foodAverage = binding.dashboard.foodAverage
@@ -60,54 +60,54 @@ class ChartsActivity : AppCompatActivity() {
 
     private fun buildInfectedChart(){
 
-        lifecycleScope.launch{
+        // on below line we are setting user percent value,
+        // setting description as enabled and offset for pie chart
+        pieChart.setUsePercentValues(true)
+        pieChart.description.isEnabled = false
+        pieChart.setExtraOffsets(5f, 10f, 5f, 5f)
 
-            // on below line we are setting user percent value,
-            // setting description as enabled and offset for pie chart
-            pieChart.setUsePercentValues(true)
-            pieChart.description.isEnabled = false
-            pieChart.setExtraOffsets(5f, 10f, 5f, 5f)
+        // on below line we are setting drag for our pie chart
+        pieChart.dragDecelerationFrictionCoef = 0.95f
 
-            // on below line we are setting drag for our pie chart
-            pieChart.dragDecelerationFrictionCoef = 0.95f
+        // on below line we are setting hole
+        // and hole color for pie chart
+        pieChart.isDrawHoleEnabled = true
+        pieChart.setHoleColor(Color.WHITE)
 
-            // on below line we are setting hole
-            // and hole color for pie chart
-            pieChart.isDrawHoleEnabled = true
-            pieChart.setHoleColor(Color.WHITE)
+        // on below line we are setting circle color and alpha
+        pieChart.setTransparentCircleColor(Color.WHITE)
+        pieChart.setTransparentCircleAlpha(110)
 
-            // on below line we are setting circle color and alpha
-            pieChart.setTransparentCircleColor(Color.WHITE)
-            pieChart.setTransparentCircleAlpha(110)
+        // on  below line we are setting hole radius
+        pieChart.holeRadius = 58f
+        pieChart.transparentCircleRadius = 61f
 
-            // on  below line we are setting hole radius
-            pieChart.holeRadius = 58f
-            pieChart.transparentCircleRadius = 61f
+        // on below line we are setting center text
+        pieChart.setDrawCenterText(true)
 
-            // on below line we are setting center text
-            pieChart.setDrawCenterText(true)
+        // on below line we are setting
+        // rotation for our pie chart
+        pieChart.rotationAngle = 0f
 
-            // on below line we are setting
-            // rotation for our pie chart
-            pieChart.rotationAngle = 0f
+        // enable rotation of the pieChart by touch
+        pieChart.isRotationEnabled = true
+        pieChart.isHighlightPerTapEnabled = true
 
-            // enable rotation of the pieChart by touch
-            pieChart.isRotationEnabled = true
-            pieChart.isHighlightPerTapEnabled = true
+        // on below line we are setting animation for our pie chart
+        pieChart.animateY(1400, Easing.EaseInOutQuad)
 
-            // on below line we are setting animation for our pie chart
-            pieChart.animateY(1400, Easing.EaseInOutQuad)
+        // on below line we are disabling our legend for pie chart
+        pieChart.legend.isEnabled = false
+        pieChart.setEntryLabelColor(Color.WHITE)
+        pieChart.setEntryLabelTextSize(12f)
 
-            // on below line we are disabling our legend for pie chart
-            pieChart.legend.isEnabled = false
-            pieChart.setEntryLabelColor(Color.WHITE)
-            pieChart.setEntryLabelTextSize(12f)
+        // on below line we are creating array list and
+        // adding data to it to display in pie chart
 
-            // on below line we are creating array list and
-            // adding data to it to display in pie chart
+        chartsViewModel.getAllSurvivors()
 
-            survivorsResponse = SurvivorClient.service.listAllSurvivors(null)
 
+        chartsViewModel.survivorsResponse.observe(this, Observer { survivorsResponse ->
             val infectedSurvivor = survivorsResponse.data.filter {
                 it.isInfected.toString() == "true"
             }
@@ -124,6 +124,7 @@ class ChartsActivity : AppCompatActivity() {
             entries.add(PieEntry(infectedSurvivorPercent.toFloat()))
             entries.add(PieEntry(notInfectedSurvivorPercent.toFloat()))
             // on below line we are setting pie data set
+
             val dataSet = PieDataSet(entries, "Mobile OS")
             // on below line we are setting icons.
             dataSet.setDrawIcons(false)
@@ -154,7 +155,7 @@ class ChartsActivity : AppCompatActivity() {
 
             // loading chart
             pieChart.invalidate()
-        }
+        })
 
     }
 
@@ -163,8 +164,10 @@ class ChartsActivity : AppCompatActivity() {
         val foodItemsCount: MutableList<Int> = mutableListOf()
         val ammunitionItemsCount: MutableList<Int> = mutableListOf()
         val medicationItemsCount: MutableList<Int> = mutableListOf()
-        lifecycleScope.launch{
-            itemsResponse = SurvivorClient.service.fetchItems()
+
+        chartsViewModel.getAllItems()
+
+        chartsViewModel.itemsResponse.observe(this, Observer { itemsResponse ->
 
             itemsResponse.data.forEach {
                 when(it.type){
@@ -187,8 +190,7 @@ class ChartsActivity : AppCompatActivity() {
             foodAverage.text = foodItemsCount.average().toString()
             waterAverage.text = waterItemsCount.average().toString()
             medicationAverage.text = medicationItemsCount.average().toString()
-
-        }
+        })
 
     }
 }
