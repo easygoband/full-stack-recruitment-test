@@ -1,4 +1,4 @@
-package com.fernando.zssn.model
+package com.fernando.zssn.data.model
 
 import java.io.Serializable
 

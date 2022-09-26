@@ -1,4 +1,6 @@
-package com.fernando.zssn.model
+package com.fernando.zssn.data.network.response
+
+import com.fernando.zssn.data.model.Item
 
 data class ResponseItemList(
     val code: Int,

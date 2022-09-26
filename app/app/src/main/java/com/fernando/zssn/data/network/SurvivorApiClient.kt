@@ -1,8 +1,12 @@
-package com.fernando.zssn.model
+package com.fernando.zssn.data.network
 
+import com.fernando.zssn.data.network.request.LocationRequest
+import com.fernando.zssn.data.network.request.SurvivorRequest
+import com.fernando.zssn.data.network.response.ResponseList
+import com.fernando.zssn.data.network.response.ResponseSingle
 import retrofit2.http.*
 
-interface SurvivorService {
+interface SurvivorApiClient {
     @GET("survivors")
     suspend fun listAllSurvivors(@Query("search") search: String?): ResponseList
 
@@ -14,9 +18,6 @@ interface SurvivorService {
 
     @PUT("survivors/{survivorId}/infected")
     suspend fun reportSurvivor(@Path(value = "survivorId") id: Int): ResponseSingle
-
-    @GET("items")
-    suspend fun fetchItems(): ResponseItemList
 
     @POST("survivors")
     suspend fun createSurvivor(@Body survivorRequest: SurvivorRequest): ResponseSingle

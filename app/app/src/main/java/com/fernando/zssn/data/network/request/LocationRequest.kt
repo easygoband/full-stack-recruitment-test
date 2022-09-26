@@ -1,4 +1,4 @@
-package com.fernando.zssn.model
+package com.fernando.zssn.data.network.request
 
 data class LocationRequest(
     var latitude: String,

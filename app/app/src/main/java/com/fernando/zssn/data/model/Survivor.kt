@@ -1,6 +1,7 @@
-package com.fernando.zssn.model
+package com.fernando.zssn.data.model
 
 import android.os.Parcelable
+import com.fernando.zssn.data.model.Item
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
